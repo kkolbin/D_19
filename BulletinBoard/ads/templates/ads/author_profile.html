@@ -1,0 +1,10 @@
+{% extends 'ads/base.html' %}
+
+{% block content %}
+  <h2>Объявления автора {{ author.username }}</h2>
+  <ul>
+    {% for post in posts %}
+      <li><a href="{% url 'ads:post_detail' pk=post.pk %}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

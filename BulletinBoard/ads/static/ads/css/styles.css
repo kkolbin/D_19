@@ -1,0 +1,85 @@
+#site-title h1 a {
+    color: white;
+    text-decoration: none;
+}
+
+#site-title h1 a:hover {
+    text-decoration: underline;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Это гарантирует, что контейнер будет занимать всю высоту видимой области */
+}
+
+#container {
+    display: flex;
+    flex-direction: row;  /* Расположить элементы в строке */
+}
+
+#left-sidebar, #main-content, #right-sidebar {
+    margin: 10px;
+    padding: 20px;
+}
+
+#left-sidebar, #right-sidebar {
+    min-width: 200px;
+    padding: 20px;
+    background-color: #fafafa;
+    border: 1px solid #2F4F4F;
+    margin: 10px;
+}
+
+#main-content {
+    width: 200px;
+    flex-grow: 1;
+    background-color: #fff;
+}
+
+#main-content .post-border {
+    border: 1px solid #2F4F4F; /* Add a 1px solid border around each post */
+    padding: 10px; /* Add some padding for better spacing */
+    margin-bottom: 15px; /* Add margin at the bottom for separation */
+}
+
+#header {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;  /* Расположить элементы в колонне */
+    align-items: center;
+}
+
+#site-title h1 {
+    margin: 0;
+}
+
+#category-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;  /* Сделать список горизонтальным */
+}
+
+#category-nav li {
+    margin-right: 10px;
+}
+
+#category-nav a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;  /* Плавный переход цвета при наведении */
+}
+
+#category-nav a:hover {
+    color: #f5f5f5;  /* Цвет при наведении */
+}
+
+footer {
+    text-align: center; /* Выравнивание текста по центру */
+    padding: 20px; /* Просто добавьте отступы для стиля */
+    background-color: #fff; /* Добавьте цвет фона, если нужно */
+}

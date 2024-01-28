@@ -1,0 +1,16 @@
+{% extends 'ads/base.html' %}
+
+{% block content %}
+  <h2>Лента объявлений</h2>
+  {% for post in posts %}
+    <div class="post">
+      <div class="post-border">
+        <h3><a href="{% url 'ads:post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
+        <p>Автор: <a href="{% url 'ads:author_profile' username=post.author.username %}">{{ post.author.username }}</a></p>
+        <p>Категория: <a href="{{ category_url }}">{{ post.get_category_display }}</a></p>
+        <p>Дата публикации: {{ post.created_at }}</p>
+        <p>{{ post.content|truncatechars:1500|striptags }}</p>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'ads/base.html' %}
+
+{% block content %}
+  <h2>Добро пожаловать, {{ user.username }}!</h2>
+  <p>Username: {{ user.username }}</p>
+  <p>Email: {{ user.email }}</p>
+  <p>First Name: {{ user.first_name }}</p>
+  <p>Last Name: {{ user.last_name }}</p>
+  {% if posts %}
+    <h3>Мои объявления:</h3>
+    <ul>
+        {% for post in posts %}
+            <li><a href="{% url 'ads:post_detail' pk=post.pk %}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+    <h3>Отклики на мои объявления:</h3>
+    <ul>
+        {% for comment in user_comments %}
+            <li><a href="{% url 'ads:accept_comment' comment.id %}">Принять отклик</a></li>
+        {% endfor %}
+    </ul>
+    <p><a href="{% url 'ads:user_comments' %}">Мои отклики</a></p>
+{% else %}
+    <p>У вас пока нет объявлений.</p>
+{% endif %}
+{% endblock %}

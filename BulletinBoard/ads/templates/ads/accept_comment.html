@@ -1,0 +1,13 @@
+{% extends 'ads/base.html' %}
+
+{% block title %}Принять отклик{% endblock %}
+
+{% block content %}
+  <h2>Принять отклик</h2>
+  <p>Вы уверены, что хотите принять этот отклик?</p>
+  <form method="post" action="{% url 'ads:accept_comment' comment.id %}">
+    {% csrf_token %}
+    <button type="submit">Принять</button>
+  </form>
+  <a href="{% url 'ads:user_comments' %}">Назад к откликам</a>
+{% endblock %}

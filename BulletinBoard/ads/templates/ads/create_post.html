@@ -1,0 +1,11 @@
+{% extends 'ads/base.html' %}
+
+{% block content %}
+  <h2>Создать объявление</h2>
+  <form method="post" enctype="multipart/form-data" action="{% url 'ads:create_post' %}">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

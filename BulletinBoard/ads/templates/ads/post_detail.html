@@ -1,0 +1,61 @@
+{% extends 'ads/base.html' %}
+
+{% block title %}
+  {{ post.title }}
+{% endblock %}
+
+{% block content %}
+  <h2>{{ post.title }}</h2>
+  <p>Автор: <a href="{% url 'ads:author_profile' username=post.author.username %}">{{ post.author.username }}</a></p>
+  <p>Категория: <a href="{{ category_url }}">{{ post.get_category_display }}</a></p>
+  {% if post.photo1 %}
+    <a data-fancybox="images" href="{{ post.photo1.url }}">
+      <img src="{{ post.photo1.url }}" alt="Photo 1">
+    </a>
+  {% endif %}
+
+  {% if post.photo2 %}
+    <a data-fancybox="images" href="{{ post.photo2.url }}">
+      <img src="{{ post.photo2.url }}" alt="Photo 2">
+    </a>
+  {% endif %}
+
+  {% if post.video1 %}
+    <a data-fancybox="videos" href="{{ post.video1 }}">
+      <img src="path/to/video-thumbnail.jpg" alt="Video 1">
+    </a>
+  {% endif %}
+
+  {% if post.video2 %}
+    <a data-fancybox="videos" href="{{ post.video2 }}">
+      <img src="path/to/video-thumbnail.jpg" alt="Video 2">
+    </a>
+  {% endif %}
+
+  <p>{{ post.content | safe }}</p>
+
+  <div class="clear"></div>
+
+  {% if user.is_authenticated and post.user == user %}
+    <a href="{% url 'ads:edit_post' pk=post.pk %}">Редактировать объявление</a>
+  {% endif %}
+
+  <h3>Комментарии</h3>
+  {% if comments %}
+    <ul>
+      {% for comment in comments %}
+        <li>{{ comment.text }} by {{ comment.user.username }} on {{ comment.created_at }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Комментариев пока нет</p>
+  {% endif %}
+
+  <h3>Добавить комментарий</h3>
+  <form method="post" action="{% url 'ads:create_comment' pk=post.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Применить</button>
+  </form>
+
+{% endblock %}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Фанатский сервер MMORPG">
+    <title>{% block title %}Доска объявлений{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'ads/css/styles.css' %}">
+    <!-- Add this line to include Fancybox library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+    <
+    <!-- Add this line to initialize Fancybox -->
+    <script>
+        $(document).ready(function () {
+            // Initialize Fancybox
+            $("[data-fancybox]").fancybox({
+                loop: true, // Enable looping through images
+            });
+        });
+    </script>
+</head>
+<body>
+    <header id="header">
+        <div id="site-title">
+            <h1><a href="{% url 'ads:home' %}">Доска объявлений</a></h1>
+        </div>
+        <nav id="category-nav">
+            <ul>
+                <li><a href="{% url 'ads:category_posts' category='Танки' %}">Танки</a></li>
+                <li><a href="{% url 'ads:category_posts' category='Хилы' %}">Хилы</a></li>
+                <li><a href="{% url 'ads:category_posts' category='ДД' %}">ДД</a></li>
+                <li><a href="{% url 'ads:category_posts' category='Торговцы' %}">Торговцы</a></li>
+                <li><a href="{% url 'ads:category_posts' category='Гилдмастеры' %}">Гилдмастеры</a></li>
+                <li><a href="{% url 'ads:category_posts' category='Квестгиверы' %}">Квестгиверы</a></li>
+                <li><a href="{% url 'ads:category_posts' category='Кузнецы' %}">Кузнецы</a></li>
+                <li><a href="{% url 'ads:category_posts' category='Кожевники' %}">Кожевники</a></li>
+                <li><a href="{% url 'ads:category_posts' category='Зельевары' %}">Зельевары</a></li>
+                <li><a href="{% url 'ads:category_posts' category='Мастера заклинаний' %}">Мастера заклинаний</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="container">
+        <div id="left-sidebar">
+            {% block left_sidebar %}
+                <a href="{% url 'ads:home' %}">Главная страница</a><br>
+
+                {% if user.is_authenticated %}
+                    <!-- Если пользователь аутентифицирован, показать ссылку на добавление объявления -->
+                    <a href="{% url 'ads:create_post' %}">Создать объявление</a>
+                {% endif %}
+
+                <h3>Топ объявлений</h3>
+                {% for post in top_posts %}
+                    <a href="{% url 'ads:post_detail' pk=post.pk %}">{{ post.title }}</a><br>
+                {% endfor %}
+            {% endblock %}
+        </div>
+
+        <div id="main-content">
+            <header>
+                <!-- Навигация или другие элементы шапки -->
+            </header>
+            <main>
+                {% block content %}{% endblock %}
+            </main>
+            <footer>
+                <!-- Ваш футер -->
+            </footer>
+        </div>
+
+        <div id="right-sidebar">
+            {% block right_sidebar %}
+            <h3>Личный кабинет</h3>
+                {% if user.is_authenticated %}
+                    <!-- Если пользователь аутентифицирован, показать ссылку на профиль и кнопку выхода -->
+                    <p>Здравствуйте, {{ user.username }}!</p>
+                    <a href="{% url 'ads:profile_view' username=request.user.username %}">Мой профиль</a><br>
+                    <a href="{% url 'account_logout' %}">Выйти</a>
+                {% else %}
+                    <!-- Если пользователь не аутентифицирован, показать ссылки на регистрацию и вход -->
+                    <a href="{% url 'account_signup' %}">Регистрация</a><br>
+                    <a href="{% url 'account_login' %}">Войти</a><br>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+
+     <footer>
+        <p>&copy; 2023 Доска объявлений. Все права защищены.</p>
+        <p>Ссылки на социальные сети и дополнительную информацию.</p>
+    </footer>
+</body>
+</html>
+
+
+

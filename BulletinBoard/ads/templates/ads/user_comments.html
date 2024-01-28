@@ -1,0 +1,24 @@
+{% extends 'ads/base.html' %}
+
+{% block content %}
+  <h2>Ваши отклики</h2>
+  {% for comment in comments %}
+    <div class="comment">
+      <p>{{ comment.content }}</p>
+
+      {% if not comment.is_accepted %}
+        <form action="{% url 'ads:accept_comment' comment_id=comment.pk %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Принять отклик</button>
+        </form>
+      {% else %}
+        <p>Отклик принят</p>
+      {% endif %}
+
+      <form action="{% url 'ads:delete_comment' comment_id=comment.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Удалить отклик</button>
+      </form>
+    </div>
+  {% endfor %}
+{% endblock %}

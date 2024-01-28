@@ -1,0 +1,28 @@
+{% extends 'ads/base.html' %}
+
+{% block title %}
+    {% if category %}
+        Доска объявлений - {{ category }}
+    {% else %}
+        Доска объявлений
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>Объявления в категории {{ category }}</h1>
+
+    {% if posts %}
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <a href="{% url 'ads:post_detail' pk=post.pk %}">{{ post.title }}</a> by
+                    <p>Автор: <a href="{% url 'ads:author_profile' username=post.author.username %}">
+                        {{ post.author.username }}</a></p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет объявлений в этой категории.</p>
+    {% endif %}
+{% endblock %}
+k %}
